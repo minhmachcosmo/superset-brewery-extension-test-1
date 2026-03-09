@@ -1,26 +1,53 @@
-# superset-brewery-extension-test-1
+# 📊 Superset Brewery Extension Test 1
 
-This is the Superset Brewery Extension Test 1 Superset Chart Plugin.
+Extension Apache Superset pour visualiser des simulations de stock de bar avec des graphiques interactifs.
 
-### Usage
+## 🚀 Quick Start
 
-To build the plugin, run the following commands:
+### Build du Plugin
 
-```
+```bash
 npm ci
 npm run build
 ```
 
-Alternatively, to run the plugin in development mode (=rebuilding whenever changes are made), start the dev server with the following command:
+### Mode Développement
 
-```
+```bash
 npm run dev
 ```
 
-To add the package to Superset, go to the `superset-frontend` subdirectory in your Superset source folder (assuming both the `superset-brewery-extension-test-1` plugin and `superset` repos are in the same root directory) and run
-```
+### Installation dans Superset
+
+```bash
+# Dans superset-frontend/
 npm i -S ../../superset-brewery-extension-test-1
 ```
+
+## 📚 Documentation Complète
+
+- **[USAGE.md](USAGE.md)** - Guide d'utilisation et configuration
+- **[INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** - Installation et intégration dans Superset
+- **[LLM_GUIDE.md](LLM_GUIDE.md)** - Guide pour LLMs (standards du projet)
+
+## 🎯 Features
+
+- ✅ Graphique en ligne interactif avec ECharts
+- ✅ Comparaison multi-scénarios
+- ✅ Zoom et navigation
+- ✅ Export d'images
+- ✅ Configuration flexible (axes, séries, style)
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/minhmachcosmo/superset-brewery-extension-test-1)
+- [Apache Superset](https://superset.apache.org)
+
+---
+
+### Installation Complète
+
+Pour l'installation complète de Superset et l'intégration, voir **[INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)**
 
 If your Superset plugin exists in the `superset-frontend` directory and you wish to resolve TypeScript errors about `@superset-ui/core` not being resolved correctly, add the following to your `tsconfig.json` file:
 

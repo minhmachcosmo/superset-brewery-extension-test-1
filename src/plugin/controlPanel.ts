@@ -105,11 +105,11 @@ const config: ControlPanelConfig = {
       controlSetRows: [
         [
           {
-            name: 'x_axis_column',
+            name: 'time_column',
             config: {
               type: 'SelectControl',
-              label: t('X-Axis Column (Time/Step)'),
-              description: t('Column for X-axis (e.g., Probe_run)'),
+              label: t('Time Column'),
+              description: t('Column for time steps (e.g., Probe_run)'),
               default: null,
               mapStateToProps: (state: any) => ({
                 choices: (state.datasource?.columns || []).map(
@@ -122,11 +122,11 @@ const config: ControlPanelConfig = {
         ],
         [
           {
-            name: 'y_axis_column',
+            name: 'station_column',
             config: {
               type: 'SelectControl',
-              label: t('Y-Axis Column (Value)'),
-              description: t('Column for Y-axis (e.g., StockMeasure)'),
+              label: t('Station Column'),
+              description: t('Column identifying each station (e.g., Probe_instance)'),
               default: null,
               mapStateToProps: (state: any) => ({
                 choices: (state.datasource?.columns || []).map(
@@ -139,11 +139,28 @@ const config: ControlPanelConfig = {
         ],
         [
           {
-            name: 'series_column',
+            name: 'value_column',
             config: {
               type: 'SelectControl',
-              label: t('Series Column (Groups)'),
-              description: t('Column to group by series (e.g., run_name)'),
+              label: t('Value Column'),
+              description: t('Column for the measured value (e.g., StockMeasure)'),
+              default: null,
+              mapStateToProps: (state: any) => ({
+                choices: (state.datasource?.columns || []).map(
+                  (c: any) => [c.column_name, c.verbose_name || c.column_name]
+                ),
+              }),
+              validators: [validateNonEmpty],
+            },
+          },
+        ],
+        [
+          {
+            name: 'scenario_column',
+            config: {
+              type: 'SelectControl',
+              label: t('Scenario Column'),
+              description: t('Column for scenario names (e.g., run_name)'),
               default: null,
               mapStateToProps: (state: any) => ({
                 choices: (state.datasource?.columns || []).map(
@@ -172,49 +189,29 @@ const config: ControlPanelConfig = {
       controlSetRows: [
         [
           {
-            name: 'chart_title',
+            name: 'animation_speed',
+            config: {
+              type: 'SelectControl',
+              label: t('Animation Speed'),
+              default: 1,
+              renderTrigger: true,
+              choices: [
+                [1, '×1'],
+                [2, '×2'],
+                [4, '×4'],
+              ],
+            },
+          },
+        ],
+        [
+          {
+            name: 'station_capacities',
             config: {
               type: 'TextControl',
-              default: 'Stock Simulation Over Time',
+              label: t('Station Capacities (JSON)'),
+              description: t('Max capacity per station: {"StockProbe":50,"BarProbe":15,...}'),
+              default: '{"StockProbe":50,"BarProbe":15,"WaiterProbe":5,"TableProbe":12,"CustomerProbe":30,"ServedProbe":100}',
               renderTrigger: true,
-              label: t('Chart Title'),
-              description: t('Title displayed at the top of the chart'),
-            },
-          },
-        ],
-        [
-          {
-            name: 'show_legend',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Show Legend'),
-              renderTrigger: true,
-              default: true,
-              description: t('Display legend for series'),
-            },
-          },
-        ],
-        [
-          {
-            name: 'show_grid',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Show Grid'),
-              renderTrigger: true,
-              default: true,
-              description: t('Display grid lines'),
-            },
-          },
-        ],
-        [
-          {
-            name: 'line_smooth',
-            config: {
-              type: 'CheckboxControl',
-              label: t('Smooth Lines'),
-              renderTrigger: true,
-              default: false,
-              description: t('Apply smooth curve to lines'),
             },
           },
         ],

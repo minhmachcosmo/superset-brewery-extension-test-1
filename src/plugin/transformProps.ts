@@ -21,31 +21,26 @@ import { StockSimulationDataRecord } from '../types';
 
 export default function transformProps(chartProps: ChartProps) {
   const { width, height, formData, queriesData } = chartProps;
-  const { 
-    chartTitle = 'Stock Simulation Over Time',
-    showLegend = true,
-    showGrid = true,
-    lineSmooth = false,
-    xAxisColumn = 'Probe_run',
-    yAxisColumn = 'StockMeasure',
-    seriesColumn = 'run_name',
+  const {
+    timeColumn = 'Probe_run',
+    stationColumn = 'Probe_instance',
+    valueColumn = 'StockMeasure',
+    scenarioColumn = 'run_name',
+    animationSpeed = 1,
+    stationCapacities = '{"StockProbe":50,"BarProbe":15,"WaiterProbe":5,"TableProbe":12,"CustomerProbe":30,"ServedProbe":100}',
   } = formData;
 
-  const data = queriesData[0].data as StockSimulationDataRecord[];
-
-  console.log('Chart data:', data);
-  console.log('Form data:', formData);
+  const data = (queriesData[0]?.data || []) as StockSimulationDataRecord[];
 
   return {
     width,
     height,
     data,
-    chartTitle,
-    showLegend,
-    showGrid,
-    lineSmooth,
-    xAxisColumn,
-    yAxisColumn,
-    seriesColumn,
+    timeColumn,
+    stationColumn,
+    valueColumn,
+    scenarioColumn,
+    animationSpeed,
+    stationCapacities,
   };
 }

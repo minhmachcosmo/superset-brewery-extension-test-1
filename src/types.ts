@@ -34,21 +34,32 @@ export interface StockSimulationDataRecord {
   run_name: string;
 }
 
-interface SupersetBreweryExtensionTest1CustomizeProps {
-  chartTitle: string;
-  showLegend: boolean;
-  showGrid: boolean;
-  lineSmooth: boolean;
-  xAxisColumn: string;
-  yAxisColumn: string;
-  seriesColumn: string;
+export interface StationConfig {
+  id: string;
+  label: string;
+  icon: string;
+  maxCapacity: number;
+  x: number;
+  y: number;
+}
+
+export interface FlowConnection {
+  from: string;
+  to: string;
+}
+
+export interface ProcessChartProps {
+  width: number;
+  height: number;
+  data: StockSimulationDataRecord[];
+  timeColumn: string;
+  stationColumn: string;
+  valueColumn: string;
+  scenarioColumn: string;
+  animationSpeed: number;
+  stationCapacities: string;
 }
 
 export type SupersetBreweryExtensionTest1QueryFormData = QueryFormData &
-  SupersetBreweryExtensionTest1StylesProps &
-  SupersetBreweryExtensionTest1CustomizeProps;
+  SupersetBreweryExtensionTest1StylesProps;
 
-export type SupersetBreweryExtensionTest1Props = SupersetBreweryExtensionTest1StylesProps &
-  SupersetBreweryExtensionTest1CustomizeProps & {
-    data: StockSimulationDataRecord[];
-  };

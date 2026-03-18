@@ -43,7 +43,7 @@ export default class SupersetBreweryExtensionTest1 extends ChartPlugin {
     super({
       buildQuery,
       controlPanel,
-      loadChart: () => import('../SupersetBreweryExtensionTest1'),
+      loadChart: () => import('../BreweryProcessChart'),
       metadata,
       transformProps,
     });

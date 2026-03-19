@@ -32,7 +32,7 @@ const CARD_H = 105;
 
 const STATIONS: StationConfig[] = [
   { id: 'StockProbe',    label: 'STOCK',    icon: '📦', maxCapacity: 50,  x: 35,  y: 55  },
-  { id: 'BarProbe',      label: 'BAR',      icon: '🍺', maxCapacity: 15,  x: 335, y: 55  },
+  { id: 'BarProbe',      label: 'PREPARATION', icon: '🍺', maxCapacity: 15,  x: 335, y: 55  },
   { id: 'WaiterProbe',   label: 'SERVEURS', icon: '🧑‍🍳', maxCapacity: 5,   x: 635, y: 55  },
   { id: 'CustomerProbe', label: 'CLIENTS',  icon: '👥', maxCapacity: 30,  x: 635, y: 300 },
   { id: 'TableProbe',    label: 'TABLES',   icon: '🪑', maxCapacity: 12,  x: 335, y: 300 },

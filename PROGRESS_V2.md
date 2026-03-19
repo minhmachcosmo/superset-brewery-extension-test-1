@@ -20,10 +20,10 @@ Démarré le : 2025
 | **V2.1-3** | **Sparkline commun** | ✅ Terminé |
 | **V2.1-4** | **6 contenus contextuels par station** | ✅ Terminé |
 | **V2.1-5** | **Build + test final** | ✅ Build OK — commit a5e30ab |
-| **V2.2-1** | **useMemo satisfaction dans composant principal** | ⬜ À faire |
-| **V2.2-2** | **Composant SatisfactionBar (stacked bar + tendance)** | ⬜ À faire |
-| **V2.2-3** | **Intégration JSX sous la timeline** | ⬜ À faire |
-| **V2.2-4** | **Build + test + commit** | ⬜ À faire |
+| **V2.2-1** | **useMemo satisfaction dans composant principal** | ✅ Terminé |
+| **V2.2-2** | **Composant SatisfactionBar (stacked bar + tendance)** | ✅ Terminé |
+| **V2.2-3** | **Intégration JSX sous la timeline** | ✅ Terminé |
+| **V2.2-4** | **Build + test + commit** | ✅ Build OK — commit a1419fe |
 
 ---
 
@@ -118,3 +118,25 @@ Served(35,300) ◀── Tables(335,300) ◀── Customers(635,300)
 | `src/BreweryProcessChart.tsx` | Créé | ✅ |
 | `src/plugin/index.ts` | Modifié | ✅ |
 | `src/SupersetBreweryExtensionTest1.tsx` | Supprimé | ✅ |
+| `src/detailGenerators.ts` | Créé (V2.1) | ✅ |
+| `src/types.ts` | Étendu avec 5 interfaces détail (V2.1) | ✅ |
+| `src/BreweryProcessChart.tsx` | V2.1 popups + V2.2 barre satisfaction | ✅ |
+| `SPEC_V2_2_SATISFACTION_BAR.md` | Créé (V2.2) | ✅ |
+
+---
+
+## V2.2 — Barre de satisfaction globale
+
+### Description
+Barre permanente affichée sous la timeline, toujours visible sans interaction. Calculée à partir de `CustomerProbe` via `generateClientDetails()`.
+
+### Fonctionnement
+- **Score** : moyenne satisfaction des clients présents à l'étape courante
+- **Tendance** : flèche ▲/▼/─ + delta vs étape précédente (seuil 1%)
+- **Barre segmentée** : 4 couleurs (#27ae60 / #f39c12 / #e67e22 / #e74c3c) proportionnelles aux groupes
+- **Fond dynamique** : vert (≥70%), jaune (≥50%), rouge (<50%)
+- **Masquée** si `CustomerProbe = 0`
+
+### Commits
+- `a1419fe feat: V2.2 global satisfaction bar below timeline`
+

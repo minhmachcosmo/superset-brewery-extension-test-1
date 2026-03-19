@@ -63,3 +63,38 @@ export interface ProcessChartProps {
 export type SupersetBreweryExtensionTest1QueryFormData = QueryFormData &
   SupersetBreweryExtensionTest1StylesProps;
 
+export interface ClientDetail {
+  clientId: string;
+  arrivalStep: number;
+  waitMinutes: number;
+  satisfaction: number;
+  status: 'waiting' | 'seated' | 'served';
+  emoji: string;
+}
+
+export interface WaiterDetail {
+  name: string;
+  status: 'active' | 'break' | 'off';
+  clientsServed: number;
+}
+
+export interface TableDetail {
+  tableId: string;
+  seats: number;
+  status: 'free' | 'occupied' | 'reserved' | 'maintenance';
+}
+
+export interface StockItemDetail {
+  productName: string;
+  quantity: number;
+  maxQuantity: number;
+  status: 'ok' | 'low' | 'critical';
+}
+
+export interface OrderDetail {
+  orderId: string;
+  productName: string;
+  status: 'ready' | 'preparing' | 'waiting';
+  durationMin: number;
+}
+

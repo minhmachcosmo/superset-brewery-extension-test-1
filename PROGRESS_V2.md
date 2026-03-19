@@ -20,6 +20,10 @@ Démarré le : 2025
 | **V2.1-3** | **Sparkline commun** | ✅ Terminé |
 | **V2.1-4** | **6 contenus contextuels par station** | ✅ Terminé |
 | **V2.1-5** | **Build + test final** | ✅ Build OK — commit a5e30ab |
+| **V2.2-1** | **useMemo satisfaction dans composant principal** | ⬜ À faire |
+| **V2.2-2** | **Composant SatisfactionBar (stacked bar + tendance)** | ⬜ À faire |
+| **V2.2-3** | **Intégration JSX sous la timeline** | ⬜ À faire |
+| **V2.2-4** | **Build + test + commit** | ⬜ À faire |
 
 ---
 

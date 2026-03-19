@@ -458,3 +458,12 @@ loadChart: () => import('../BreweryProcessChart'),
 6. ✅ Aucune lib externe ajoutée (SVG pur)
 7. ✅ `npm run build` passe sans erreur
 8. ✅ Fonctionne dans Superset 4.1.1 (React 16.13.1)
+
+---
+
+## Specs complémentaires (évolutions)
+
+| Version | Spec | Description | Statut |
+|---|---|---|---|
+| V2.1 | `SPEC_V2_1_DETAIL_POPUPS.md` | Popups contextuels au clic sur chaque station (sparkline + détails) | ✅ Terminé — commit a5e30ab |
+| V2.2 | `SPEC_V2_2_SATISFACTION_BAR.md` | Barre de satisfaction globale sous la timeline (stacked bar + tendance) | ⬜ À implémenter |

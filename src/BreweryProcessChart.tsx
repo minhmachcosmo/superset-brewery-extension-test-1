@@ -437,6 +437,73 @@ function PopupContent({
 
 
 
+// ─── SatisfactionBar ──────────────────────────────────────────────────────
+
+interface SatisfactionBarProps {
+  avgSat: number;
+  deltaSat: number;
+  groups: { veryHappy: number; happy: number; unhappy: number; veryUnhappy: number };
+  total: number;
+}
+
+function SatisfactionBar({ avgSat, deltaSat, groups, total }: SatisfactionBarProps) {
+  const pct = Math.round(avgSat * 100);
+  const pctColor = pct >= 70 ? '#27ae60' : pct >= 50 ? '#f39c12' : '#e74c3c';
+  const bg = pct >= 70 ? '#eafaf1' : pct >= 50 ? '#fef9e7' : '#fdecea';
+  const borderColor = pct >= 70 ? '#27ae60' : pct >= 50 ? '#f39c12' : '#e74c3c';
+
+  const arrow = deltaSat > 0.01 ? '▲' : deltaSat < -0.01 ? '▼' : '─';
+  const arrowColor = deltaSat > 0.01 ? '#27ae60' : deltaSat < -0.01 ? '#e74c3c' : '#999';
+  const deltaAbs = Math.round(Math.abs(deltaSat) * 100);
+  const deltaText = deltaSat > 0.01 ? `(+${deltaAbs}%)`
+    : deltaSat < -0.01 ? `(−${deltaAbs}%)`
+    : '(=)';
+
+  const safeTotal = total || 1;
+  const segs = [
+    { w: groups.veryHappy   / safeTotal * 100, color: '#27ae60', emoji: '😊' },
+    { w: groups.happy       / safeTotal * 100, color: '#f39c12', emoji: '😐' },
+    { w: groups.unhappy     / safeTotal * 100, color: '#e67e22', emoji: '😟' },
+    { w: groups.veryUnhappy / safeTotal * 100, color: '#e74c3c', emoji: '😡' },
+  ];
+
+  return (
+    <div style={{
+      padding: '5px 14px 6px',
+      background: bg,
+      borderLeft: `3px solid ${borderColor}`,
+      flexShrink: 0,
+      fontFamily: "'Segoe UI', Arial, sans-serif",
+    }}>
+      {/* Ligne 1 — label + score + tendance */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+        <span style={{ fontSize: 14 }}>{satisfactionEmoji(avgSat)}</span>
+        <span style={{ fontSize: 11, color: '#666', fontWeight: 'bold' }}>Satisfaction globale</span>
+        <span style={{ fontSize: 13, fontWeight: 'bold', color: pctColor, marginLeft: 'auto' }}>{pct}%</span>
+        <span style={{ fontSize: 11, color: arrowColor, fontWeight: 'bold' }}>{arrow}</span>
+        <span style={{ fontSize: 10, color: arrowColor }}>{deltaText}</span>
+      </div>
+      {/* Ligne 2 — barre segmentée */}
+      <div style={{ display: 'flex', height: 8, borderRadius: 4, overflow: 'hidden', background: '#e0e0e0', marginBottom: 4 }}>
+        {segs.filter(s => s.w > 0).map(s => (
+          <div
+            key={s.emoji}
+            style={{ width: `${s.w}%`, height: '100%', background: s.color, transition: 'width 0.4s ease' }}
+          />
+        ))}
+      </div>
+      {/* Ligne 3 — légende compacte */}
+      <div style={{ display: 'flex', gap: 12, fontSize: 10 }}>
+        {segs.map(s => (
+          <span key={s.emoji}>{s.emoji} <b style={{ color: s.color }}>{Math.round(s.w)}%</b></span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── StationCard ──────────────────────────────────────────────────────────
+
 interface StationCardProps {
   config: StationConfig;
   value: number;
@@ -701,6 +768,32 @@ export default function BreweryProcessChart(props: ProcessChartProps) {
     [selectedStation, stations],
   );
 
+  // Satisfaction bar data
+  const satisfactionData = useMemo(() => {
+    const customerCount = currentValues['CustomerProbe'] ?? 0;
+    if (customerCount <= 0) return null;
+    const clients = generateClientDetails(scenario, currentStep ?? 0, customerCount);
+    if (clients.length === 0) return null;
+    const total = clients.length;
+    const avgSat = clients.reduce((a, c) => a + c.satisfaction, 0) / total;
+    const prevStep = steps[Math.max(0, stepIdx - 1)];
+    const prevCount = dataMap.get(scenario)?.get(prevStep)?.get('CustomerProbe') ?? 0;
+    const prevClients = generateClientDetails(scenario, prevStep ?? 0, prevCount);
+    const prevAvgSat = prevClients.length > 0
+      ? prevClients.reduce((a, c) => a + c.satisfaction, 0) / prevClients.length : 0;
+    return {
+      avgSat,
+      deltaSat: avgSat - prevAvgSat,
+      groups: {
+        veryHappy:   clients.filter(c => c.satisfaction >= 0.8).length,
+        happy:       clients.filter(c => c.satisfaction >= 0.5 && c.satisfaction < 0.8).length,
+        unhappy:     clients.filter(c => c.satisfaction >= 0.2 && c.satisfaction < 0.5).length,
+        veryUnhappy: clients.filter(c => c.satisfaction < 0.2).length,
+      },
+      total,
+    };
+  }, [scenario, currentStep, currentValues, steps, stepIdx, dataMap]);
+
   // Styles (all inline — no external CSS file)
   const outerStyle: React.CSSProperties = {
     width, height,
@@ -841,6 +934,16 @@ export default function BreweryProcessChart(props: ProcessChartProps) {
           {steps.length > 0 && <span>{steps[maxStepIdx]}</span>}
         </div>
       </div>
+
+      {/* ── Satisfaction bar ─────────────────────────────────── */}
+      {satisfactionData && (
+        <SatisfactionBar
+          avgSat={satisfactionData.avgSat}
+          deltaSat={satisfactionData.deltaSat}
+          groups={satisfactionData.groups}
+          total={satisfactionData.total}
+        />
+      )}
 
     </div>
   );

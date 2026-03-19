@@ -863,7 +863,7 @@ export default function BreweryProcessChart(props: ProcessChartProps) {
       </div>
 
       {/* ── SVG area ─────────────────────────────────────────────── */}
-      <div style={{ flex: 1, position: 'relative', overflow: 'visible' }}>
+      <div style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'visible' }}>
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           preserveAspectRatio="xMidYMid meet"

@@ -15,11 +15,11 @@ Démarré le : 2025
 | 2 | Créer le composant SVG animé (BreweryProcessChart.tsx) | ✅ Terminé |
 | 3 | Build + test fonctionnel dans Superset | ✅ Build OK (0 erreurs TS) |
 | 4 | Polish, commit, tag v2.0.0 | ✅ Terminé |
-| **V2.1-1** | **detailGenerators.ts — PRNG + 5 fonctions** | ⬜ En cours |
-| **V2.1-2** | **DetailPopup + StationCard cliquable** | ⬜ À faire |
-| **V2.1-3** | **Sparkline commun** | ⬜ À faire |
-| **V2.1-4** | **6 contenus contextuels par station** | ⬜ À faire |
-| **V2.1-5** | **Build + test final** | ⬜ À faire |
+| **V2.1-1** | **detailGenerators.ts — PRNG + 5 fonctions** | ✅ Terminé |
+| **V2.1-2** | **DetailPopup + StationCard cliquable** | ✅ Terminé |
+| **V2.1-3** | **Sparkline commun** | ✅ Terminé |
+| **V2.1-4** | **6 contenus contextuels par station** | ✅ Terminé |
+| **V2.1-5** | **Build + test final** | ✅ Build OK — commit a5e30ab |
 
 ---
 

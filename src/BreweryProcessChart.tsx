@@ -862,6 +862,16 @@ export default function BreweryProcessChart(props: ProcessChartProps) {
         </div>
       </div>
 
+      {/* ── Satisfaction bar ─────────────────────────────────── */}
+      {satisfactionData && (
+        <SatisfactionBar
+          avgSat={satisfactionData.avgSat}
+          deltaSat={satisfactionData.deltaSat}
+          groups={satisfactionData.groups}
+          total={satisfactionData.total}
+        />
+      )}
+
       {/* ── SVG area ─────────────────────────────────────────────── */}
       <div style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'visible' }}>
         <svg
@@ -934,16 +944,6 @@ export default function BreweryProcessChart(props: ProcessChartProps) {
           {steps.length > 0 && <span>{steps[maxStepIdx]}</span>}
         </div>
       </div>
-
-      {/* ── Satisfaction bar ─────────────────────────────────── */}
-      {satisfactionData && (
-        <SatisfactionBar
-          avgSat={satisfactionData.avgSat}
-          deltaSat={satisfactionData.deltaSat}
-          groups={satisfactionData.groups}
-          total={satisfactionData.total}
-        />
-      )}
 
     </div>
   );

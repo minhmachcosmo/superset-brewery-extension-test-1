@@ -7,7 +7,7 @@ Prérequis : V2.1 fonctionnelle (commit `a5e30ab`)
 
 ## Objectif
 
-Ajouter une **barre de satisfaction globale** toujours visible sous la timeline du chart principal, sans ouvrir de popup. Cette barre donne un indicateur temps-réel de l'état de la brasserie à chaque step.
+Ajouter une **barre de satisfaction globale** toujours visible entre la barre de contrôle et le schéma de process. Cette barre donne un indicateur temps-réel de l'état de la brasserie à chaque step.
 
 ---
 
@@ -16,6 +16,15 @@ Ajouter une **barre de satisfaction globale** toujours visible sous la timeline 
 ```
 ┌───────────────────────────────────────────────────────────────┐
 │  🍺 Brewery Simulation   [Scénario ▾]   ▶ ×2  Step 12 / 23  │
+│                                                               │
+│  ┌─ Satisfaction ─────────────────────────────────────────┐   │
+│  │  😊 Satisfaction globale              73% ▲ (+3%)      │   │
+│  │  ┌──────────────────────────────────────────────────┐  │   │
+│  │  │████████████████████│░░░░░░░░░░│░░░░░░│░░│        │  │   │
+│  │  │  #27ae60  43%      │#f39c12 33│#e67e22│🔴│        │  │   │
+│  │  └──────────────────────────────────────────────────┘  │   │
+│  │  😊 43%      😐 33%      😟 17%      😡 7%            │   │
+│  └────────────────────────────────────────────────────────┘   │
 │ ┌───────────────────────────────────────────────────────────┐ │
 │ │                                                           │ │
 │ │   [STOCK]  ──▶  [PREP.]  ──▶  [SERVEURS]                │ │
@@ -25,15 +34,6 @@ Ajouter une **barre de satisfaction globale** toujours visible sous la timeline 
 │ └───────────────────────────────────────────────────────────┘ │
 │  ┌─ Timeline ─────────────────────────────────────────────┐   │
 │  │  ●━━━━━━━━━━━━━━━━━━╸○──────────────────────────────── │   │
-│  └────────────────────────────────────────────────────────┘   │
-│                                                               │
-│  ┌─ Satisfaction ─────────────────────────────────────────┐   │
-│  │  😊 Satisfaction globale              73% ▲ (+3%)      │   │
-│  │  ┌──────────────────────────────────────────────────┐  │   │
-│  │  │████████████████████│░░░░░░░░░░│░░░░░░│░░│        │  │   │
-│  │  │  #27ae60  43%      │#f39c12 33│#e67e22│🔴│        │  │   │
-│  │  └──────────────────────────────────────────────────┘  │   │
-│  │  😊 43%      😐 33%      😟 17%      😡 7%            │   │
 │  └────────────────────────────────────────────────────────┘   │
 └───────────────────────────────────────────────────────────────┘
 ```
@@ -162,9 +162,9 @@ const deltaSat = avgSat - prevAvgSat;
 ```
 outerDiv (flex column)
   ├── barStyle          (control bar — noir, flexShrink: 0)
-  ├── svgArea           (flex: 1, SVG + popup)
-  ├── timelineStyle     (slider — gris clair, flexShrink: 0)
-  └── satisfactionBar   (NOUVEAU — ~38px, fond dynamique, flexShrink: 0)
+  ├── satisfactionBar   (NOUVEAU — ~38px, fond dynamique, flexShrink: 0)
+  ├── svgArea           (flex: 1, minHeight: 0, SVG + popup)
+  └── timelineStyle     (slider — gris clair, flexShrink: 0)
 ```
 
 ### Composant `SatisfactionBar`

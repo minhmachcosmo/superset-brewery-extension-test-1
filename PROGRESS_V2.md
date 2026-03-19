@@ -51,19 +51,20 @@ Démarré le : 2025
 ## Phase 2 — Composant SVG
 
 ### Tâches
-- [ ] Créer `src/BreweryProcessChart.tsx`
-  - [ ] Barre de contrôle (Play/Pause, ×Speed, Scenario dropdown, Step label)
-  - [ ] SVG 800×450 avec 6 `StationCard` positionnées en U inversé
-  - [ ] 5 `FlowArrow` animées avec `stroke-dashoffset`
-  - [ ] Timeline slider en bas
-  - [ ] `useEffect` autoplay avec cleanup
-- [ ] Modifier `src/plugin/index.ts` — `loadChart` → `BreweryProcessChart`
+- [x] Créer `src/BreweryProcessChart.tsx`
+  - [x] Barre de contrôle (Play/Pause, ×Speed, Scenario dropdown, Step label)
+  - [x] SVG 820×460 avec 6 `StationCard` positionnées en U inversé
+  - [x] 5 `FlowArrow` animées avec `stroke-dashoffset`
+  - [x] Timeline slider en bas
+  - [x] `useEffect` autoplay avec cleanup
+- [x] Modifier `src/plugin/index.ts` — `loadChart` → `BreweryProcessChart`
+- [x] Renommer station BAR → PREPARATION (commit fd56653)
 
-### Positionnement stations (viewBox 800×450)
+### Positionnement stations (viewBox 820×460)
 ```
-Step 0→23  :  Stock(40,60) ──▶ Bar(320,60) ──▶ Waiters(600,60)
-                                                      │
-              Served(40,290) ◀── Tables(320,290) ◀── Customers(600,290)
+Stock(35,55) ──▶ Preparation(335,55) ──▶ Waiters(635,55)
+                                                │
+Served(35,300) ◀── Tables(335,300) ◀── Customers(635,300)
 ```
 
 ---
@@ -71,8 +72,8 @@ Step 0→23  :  Stock(40,60) ──▶ Bar(320,60) ──▶ Waiters(600,60)
 ## Phase 3 — Build & Test
 
 ### Checklist de validation
-- [ ] `npm run build` — 0 erreurs TypeScript
-- [ ] Hard refresh `localhost:9000`
+- [x] `npm run build` — 0 erreurs TypeScript
+- [ ] Hard refresh `localhost:9000` — ⏳ en attente test utilisateur
 - [ ] Les 6 stations s'affichent au step 0
 - [ ] Play/Pause fonctionne, valeurs changent avec animation
 - [ ] Slider timeline navigue correctement
@@ -87,10 +88,11 @@ Step 0→23  :  Stock(40,60) ──▶ Bar(320,60) ──▶ Waiters(600,60)
 ## Phase 4 — Finalisation
 
 ### Tâches
-- [ ] Supprimer `src/SupersetBreweryExtensionTest1.tsx` (V1 taggée v1.0.0)
-- [ ] `git commit -m "feat: V2 brewery process animated SVG chart"`
-- [ ] `git tag -a v2.0.0`
-- [ ] `git push && git push origin v2.0.0`
+- [x] Supprimer `src/SupersetBreweryExtensionTest1.tsx` (V1 taggée v1.0.0)
+- [x] `git commit` — `030588b feat: V2 brewery process animated SVG chart`
+- [x] `git commit` — `fd56653 refactor: rename BAR station to PREPARATION`
+- [ ] `git tag -a v2.0.0` — après validation visuelle dans Superset
+- [ ] `git push origin v2.0.0`
 
 ---
 

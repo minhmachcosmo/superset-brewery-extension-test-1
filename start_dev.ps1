@@ -18,6 +18,31 @@ if (Test-Path $nvmDir) {
 
 Write-Host "=== Demarrage du serveur de developpement Superset ===" -ForegroundColor Cyan
 
+# ── Vérification et injection de simulation_stock.db dans Docker ──────────────
+$dbLocal = "$PSScriptRoot\simulation_stock.db"
+$dbContainer = "/app/simulation_stock.db"
+$containerName = "superset_brewery"
+
+$dockerRunning = docker ps --filter "name=$containerName" --filter "status=running" -q 2>$null
+if ($dockerRunning) {
+    $exists = docker exec $containerName sh -c "test -f $dbContainer && echo yes || echo no" 2>$null
+    if ($exists -ne "yes") {
+        if (Test-Path $dbLocal) {
+            Write-Host "DB manquante dans Docker — injection de simulation_stock.db..." -ForegroundColor Yellow
+            docker cp $dbLocal "${containerName}:${dbContainer}"
+            Write-Host "  simulation_stock.db injectée dans $containerName" -ForegroundColor Green
+        } else {
+            Write-Host "AVERTISSEMENT: simulation_stock.db introuvable en local ($dbLocal)" -ForegroundColor Red
+        }
+    } else {
+        Write-Host "simulation_stock.db OK dans $containerName" -ForegroundColor Green
+    }
+} else {
+    Write-Host "AVERTISSEMENT: conteneur $containerName non démarré — DB non vérifiée" -ForegroundColor Yellow
+}
+# ─────────────────────────────────────────────────────────────────────────────
+
+
 # Verifier que zstd est disponible
 if (-not (Get-Command zstd -ErrorAction SilentlyContinue)) {
     Write-Host "ERREUR: zstd n'est pas installe. Lance: winget install Meta.Zstandard" -ForegroundColor Red
